@@ -29,7 +29,7 @@ class YouTubeCaptionScraperImpl implements YouTubeCaptionScraper {
   late final YouTubeCaptionScraperHttpClient _httpClient;
 
   @override
-  Future<List<CaptionTrack>> getCaptionTracks(String videoUrl) async {
+  Future<List<CaptionTrack>?> getCaptionTracks(String videoUrl) async {
     final response = await _httpClient.get(Uri.parse(videoUrl));
     if (response.statusCode == 404) {
       throw const VideoNotFound();
@@ -37,11 +37,7 @@ class YouTubeCaptionScraperImpl implements YouTubeCaptionScraper {
 
     final data = response.body;
     final hasCaptionTracks = data.contains('captionTracks');
-    if (!hasCaptionTracks) {
-      throw const CaptionTracksNotFound();
-    } else {
-      return _parseCaptionTracks(data);
-    }
+    return hasCaptionTracks ? _parseCaptionTracks(data) : null;
   }
 
   List<CaptionTrack> _parseCaptionTracks(String responseBody) {

@@ -10,13 +10,15 @@ Future<void> main(List<String> arguments) async {
   final captionScraper = YouTubeCaptionScraper();
   final captionTracks = await captionScraper.getCaptionTracks(videoUrl);
 
-  final subtitles = await captionScraper.getSubtitles(captionTracks[0]);
-  for (final subtitle in subtitles) {
-    print(
-      '${_formatDuration(subtitle.start)} - '
-      '${_formatDuration(subtitle.duration)} - '
-      '${subtitle.text}',
-    );
+  if (captionTracks != null) {
+    final subtitles = await captionScraper.getSubtitles(captionTracks[0]);
+    for (final subtitle in subtitles) {
+      print(
+        '${_formatDuration(subtitle.start)} - '
+        '${_formatDuration(subtitle.duration)} - '
+        '${subtitle.text}',
+      );
+    }
   }
 }
 
