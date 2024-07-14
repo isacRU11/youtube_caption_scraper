@@ -29,8 +29,9 @@ class YouTubeCaptionScraperImpl implements YouTubeCaptionScraper {
   late final YouTubeCaptionScraperHttpClient _httpClient;
 
   @override
-  Future<List<CaptionTrack>?> getCaptionTracks(String videoUrl) async {
-    final response = await _httpClient.get(Uri.parse(videoUrl));
+  Future<List<CaptionTrack>?> getCaptionTracks(String videoId) async {
+    final response = await _httpClient
+        .get(Uri.parse("https://www.youtube.com/watch?v=$videoId"));
     if (response.statusCode == 404) {
       throw const VideoNotFound();
     }
