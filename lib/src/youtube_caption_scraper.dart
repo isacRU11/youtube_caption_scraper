@@ -28,8 +28,8 @@ abstract class YouTubeCaptionScraper {
     return YouTubeCaptionScraperImpl(httpClient: httpClient);
   }
 
-  /// Gets caption tracks of the video on [videoUrl].
-  Future<List<CaptionTrack>?> getCaptionTracks(String videoUrl);
+  /// Gets caption tracks of the video on [videoId].
+  Future<List<CaptionTrack>?> getCaptionTracks(String videoId);
 
   /// Gets subtitles based on [captionTrack.baseUrl].
   ///
